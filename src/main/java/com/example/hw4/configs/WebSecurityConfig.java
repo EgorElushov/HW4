@@ -18,8 +18,6 @@ import com.example.hw4.configs.jwt.AuthEntryPointJwt;
 import com.example.hw4.configs.jwt.AuthTokenFilter;
 import com.example.hw4.service.UserDetailsServiceImpl;
 
-import javax.servlet.Filter;
-
 @EnableWebSecurity
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -63,6 +61,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/api/test/**").permitAll()
 				.anyRequest().authenticated();
 
-		http.addFilter((Filter)jwtTokenFilter());
+		http.addFilterBefore(jwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 	}
 }
+
